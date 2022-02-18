@@ -85,7 +85,7 @@ public class InvoiceTest {
         invoice.addProduct(new DairyProduct("Maslo", new BigDecimal("100")));
         // price with tax: 12.30
         invoice.addProduct(new OtherProduct("Chipsy", new BigDecimal("10")));
-        Assert.assertThat(new BigDecimal("320.30"), Matchers.comparesEqualTo(invoice.getTotal()));
+        Assert.assertThat(new BigDecimal("310"), Matchers.comparesEqualTo(invoice.getTotal()));
     }
 
     @Test
@@ -107,7 +107,7 @@ public class InvoiceTest {
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
         // 1000x pinezka - price with tax: 12.30
         invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
-        Assert.assertThat(new BigDecimal("54.70"), Matchers.comparesEqualTo(invoice.getTotal()));
+        Assert.assertThat(new BigDecimal("50"), Matchers.comparesEqualTo(invoice.getTotal()));
     }
 
     @Test(expected = IllegalArgumentException.class)

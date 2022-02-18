@@ -1,26 +1,28 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
-//    private Collection<Product> products = new ArrayList<>();
 
     private Map<Product, Integer> products = new HashMap<>();
 
     public void addProduct(Product product)
     {
-        this.addProduct(product, 1); //dodanie jednego produktu do mapy
+        this.addProduct(product, 1);
     }
 
     public void addProduct(Product product, Integer quantity)
     {
-        this.products.put(product, quantity); //dodanie danej ilosci produktow do mapy
+        if (quantity < 1)
+        {
+            throw new IllegalArgumentException("Quantity cannot be negative or 0");
+        }
+        this.products.put(product, quantity);
     }
 
     public BigDecimal getNetTotal()
@@ -30,18 +32,34 @@ public class Invoice {
             Integer quantity = this.products.get(product);
             BigDecimal quantityAsBigDecimal = BigDecimal.valueOf(quantity);
             BigDecimal priceOfThisItem = product.getPrice().multiply(quantityAsBigDecimal);
-            sum = sum.add(priceOfThisItem); //suma = suma + price (dla sumy typu BigDecimal)
+            sum = sum.add(priceOfThisItem);
         }
         return sum;
     }
 
     public BigDecimal getTax()
     {
-        return BigDecimal.ZERO;
+        BigDecimal tax = BigDecimal.ZERO;
+        if (products.size() == 0) {
+            return BigDecimal.ZERO;
+        } else {
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                tax = tax.add(new BigDecimal(entry.getValue()).multiply(entry.getKey().getPrice().multiply(entry.getKey().getTaxPercent())));
+            }
+        }
+        return tax;
     }
 
     public BigDecimal getTotal()
     {
-        return BigDecimal.ZERO;
+        BigDecimal total = BigDecimal.ZERO;
+        if (products.size() == 0) {
+            return BigDecimal.ZERO;
+        } else {
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                total = total.add(new BigDecimal(entry.getValue()).multiply(entry.getKey().getPrice()));
+            }
+        }
+        return total;
     }
 }
