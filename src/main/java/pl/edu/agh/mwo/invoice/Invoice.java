@@ -4,9 +4,35 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import pl.edu.agh.mwo.invoice.product.Product;
+import java.util.Random;
 
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
+
+    private Integer invoiceNumber;
+
+    public Invoice()
+    {
+        if (invoiceNumber == null)
+        {
+            generateInvoiceNumber();
+        }
+    }
+
+    public Integer getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(Integer invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
+    private void generateInvoiceNumber()
+    {
+        Random rand = new Random();
+        int max = 2000000;
+        invoiceNumber = rand.nextInt(max);
+    }
 
     public void addProduct(Product product) {
         addProduct(product, 1);
@@ -40,4 +66,6 @@ public class Invoice {
         }
         return totalGross;
     }
+
+
 }

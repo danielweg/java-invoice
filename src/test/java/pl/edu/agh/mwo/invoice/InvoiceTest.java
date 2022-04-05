@@ -13,6 +13,8 @@ import pl.edu.agh.mwo.invoice.product.OtherProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
 import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
 
+import static org.junit.Assert.*;
+
 public class InvoiceTest {
     private Invoice invoice;
 
@@ -124,5 +126,33 @@ public class InvoiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void testAddingNullProduct() {
         invoice.addProduct(null);
+    }
+
+    @Test
+    public void testInvoiceNumberGreaterThanZero()
+    {
+        assertTrue(invoice.getInvoiceNumber()>0);
+    }
+
+    @Test
+    public void testInvoiceNumberIsNotEmpty()
+    {
+        assertNotNull(invoice.getInvoiceNumber());
+    }
+
+    @Test
+    public void testInvoice1NumberDifferentThanInvoice2Number()
+    {
+        Invoice invoice2 = new Invoice();
+        Assert.assertNotEquals(invoice.getInvoiceNumber(), invoice2.getInvoiceNumber());
+    }
+
+    public void testInvoiceNumberDoesNotChange()
+    {
+        int initialInvoiceNumber = invoice.getInvoiceNumber();
+        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
+        int currentInvoiceNumber = invoice.getInvoiceNumber();
+        assertEquals(initialInvoiceNumber, currentInvoiceNumber);
     }
 }
