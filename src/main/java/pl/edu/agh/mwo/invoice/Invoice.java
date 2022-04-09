@@ -78,7 +78,8 @@ public class Invoice {
                     .append(" Ilosc: ")
                     .append(entry.getValue())
                     .append(" Cena: ")
-                    .append(getGrossTotalForPrinting(entry.getKey().getPriceWithTax(), BigDecimal.valueOf(entry.getValue())))
+                    .append(getGrossTotalForPrinting(entry.getKey().getPriceWithTax(),
+                            BigDecimal.valueOf(entry.getValue())))
                     .append("\n");
         }
         builder.append("lICZBA POZYCJI: ").append(products.size());
