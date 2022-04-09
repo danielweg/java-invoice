@@ -11,10 +11,8 @@ public class Invoice {
 
     private Integer invoiceNumber;
 
-    public Invoice()
-    {
-        if (invoiceNumber == null)
-        {
+    public Invoice() {
+        if (invoiceNumber == null) {
             generateInvoiceNumber();
         }
     }
@@ -27,10 +25,9 @@ public class Invoice {
         this.invoiceNumber = invoiceNumber;
     }
 
-    private void generateInvoiceNumber()
-    {
+    private void generateInvoiceNumber() {
         Random rand = new Random();
-        int max = 2000000;
+        final int max = 2000000;
         invoiceNumber = rand.nextInt(max);
     }
 
@@ -71,8 +68,7 @@ public class Invoice {
         return priceWithTax.multiply(quantity);
     }
 
-    public String printing()
-    {
+    public String printing() {
         StringBuilder builder = new StringBuilder();
         String invoiceNumber = "Numer faktury: " + getInvoiceNumber() + "\n";
         builder.append(invoiceNumber);
@@ -88,6 +84,4 @@ public class Invoice {
         builder.append("lICZBA POZYCJI: ").append(products.size());
         return builder.toString();
     }
-
-
 }
