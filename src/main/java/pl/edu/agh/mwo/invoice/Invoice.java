@@ -6,19 +6,17 @@ import java.util.Map;
 import java.util.Random;
 import pl.edu.agh.mwo.invoice.product.Product;
 
-public class Invoice{
+public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
     private Integer invoiceNumber;
     public Invoice() {
         if (invoiceNumber == null) {
-            generateInvoiceNumber();
-        }
+            generateInvoiceNumber();}
     }
 
     public Integer getInvoiceNumber() {
         return invoiceNumber;
     }
-
     public void setInvoiceNumber(Integer invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
