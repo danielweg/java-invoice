@@ -9,9 +9,11 @@ import pl.edu.agh.mwo.invoice.product.Product;
 public class Invoice {
     private Map<Product, Integer> products = new HashMap<Product, Integer>();
     private Integer invoiceNumber;
+
     public Invoice() {
         if (invoiceNumber == null) {
-            generateInvoiceNumber();}
+            generateInvoiceNumber();
+        }
     }
 
     public Integer getInvoiceNumber() {
