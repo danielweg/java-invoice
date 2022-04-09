@@ -19,6 +19,7 @@ public class Invoice {
     public Integer getInvoiceNumber() {
         return invoiceNumber;
     }
+
     public void setInvoiceNumber(Integer invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
@@ -70,8 +71,7 @@ public class Invoice {
         StringBuilder builder = new StringBuilder();
         String invoiceNumber = "Numer faktury: " + getInvoiceNumber() + "\n";
         builder.append(invoiceNumber);
-        for (Map.Entry<Product, Integer> entry : products.entrySet())
-        {
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             builder.append(entry.getKey().getName())
                     .append(" Ilosc: ")
                     .append(entry.getValue())
