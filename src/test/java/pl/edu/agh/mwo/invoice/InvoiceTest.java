@@ -155,4 +155,35 @@ public class InvoiceTest {
         int currentInvoiceNumber = invoice.getInvoiceNumber();
         assertEquals(initialInvoiceNumber, currentInvoiceNumber);
     }
+
+    @Test
+    public void testPrintInvoiceWIthNoProducts() {
+        String expected = "Numer faktury: " + invoice.getInvoiceNumber() + "\n" +
+                "lICZBA POZYCJI: 0";
+        String result = invoice.printing();
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void testPrintInvoiceWithOneProduct() {
+        String expected = "Numer faktury: " + invoice.getInvoiceNumber() + "\n" +
+                "Chleb Ilosc: 2 Cena: 10.80\n" +
+                "lICZBA POZYCJI: 1";
+        invoice.addProduct(new DairyProduct("Chleb", new BigDecimal("5")), 2);
+        String result = invoice.printing();
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void testPrintInvoiceWithTwoProducts() {
+        String expected = "Numer faktury: " + invoice.getInvoiceNumber() + "\n" +
+                "Chleb Ilosc: 2 Cena: 10\n" +
+                "Chedar Ilosc: 3 Cena: 32.40\n" +
+                "lICZBA POZYCJI: 2";
+        invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
+        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        String result = invoice.printing();
+        assertEquals(result, expected);
+    }
+
 }

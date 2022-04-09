@@ -67,5 +67,27 @@ public class Invoice {
         return totalGross;
     }
 
+    private BigDecimal getGrossTotalForPrinting(BigDecimal priceWithTax, BigDecimal quantity) {
+        return priceWithTax.multiply(quantity);
+    }
+
+    public String printing()
+    {
+        StringBuilder builder = new StringBuilder();
+        String invoiceNumber = "Numer faktury: " + getInvoiceNumber() + "\n";
+        builder.append(invoiceNumber);
+        for (Map.Entry<Product, Integer> entry : products.entrySet())
+        {
+            builder.append(entry.getKey().getName())
+                    .append(" Ilosc: ")
+                    .append(entry.getValue())
+                    .append(" Cena: ")
+                    .append(getGrossTotalForPrinting(entry.getKey().getPriceWithTax(), BigDecimal.valueOf(entry.getValue())))
+                    .append("\n");
+        }
+        builder.append("lICZBA POZYCJI: ").append(products.size());
+        return builder.toString();
+    }
+
 
 }
